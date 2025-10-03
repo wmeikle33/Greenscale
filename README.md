@@ -1,3 +1,3 @@
-# Image Recognition Program (Sample / Redacted)
+This repository is a public, redaction‑safe sample of a company program that employs a LSTM based neural network to analyze time series data related to stocks. It demonstrates sample code without exposing any proprietary logic.
 
-See README for usage. This is a program I developed while working as a programming contractor for Greenscale. Because this program is proprietary, only a small piece of sample code is provided as an example.
+✅ You can share this repo publicly. Proprietary parsing rules, vendor/OCR config, and corp data are not included.
