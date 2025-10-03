@@ -1,3 +1,7 @@
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+
 def read_and_decode(filename, reshape_dims):
     image = tf.io.read_file(filename)
     image = tf.image.decode_jpeg(image, channels=IMG_CHANNELS)
@@ -15,10 +19,6 @@ def decode_csv(csv_row):
     score = tf.convert_to_tensor(float(score), dtype=tf.float32)
     image = read_and_decode(filename, [IMG_HEIGHT, IMG_WIDTH])
     return image, score
-
-import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras import layers
 
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 x_train = (x_train.astype("float32") / 255.0)[..., None]  # add channel dim: (N,28,28,1)
