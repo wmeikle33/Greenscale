@@ -4,4 +4,4 @@ SELECT COUNT(*) AS n,
        MIN(TRL_cm) AS minv,
        MAX(TRL_cm) AS maxv
 FROM t
-WHERE value IS NOT NULL;
+WHERE TRL_cm IS NOT NULL;
