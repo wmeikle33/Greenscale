@@ -5,3 +5,9 @@ SELECT COUNT(*) AS n,
        MAX(TRL_cm) AS maxv
 FROM t
 WHERE TRL_cm IS NOT NULL;
+
+CREATE TABLE plants (
+  id BIGSERIAL PRIMARY KEY,
+  species TEXT NOT NULL,
+  captured_at TIMESTAMPTZ DEFAULT now()
+);
