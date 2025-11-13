@@ -11,3 +11,7 @@ CREATE TABLE plants (
   species TEXT NOT NULL,
   captured_at TIMESTAMPTZ DEFAULT now()
 );
+
+SELECT * FROM plants;  
+SELECT * FROM plants LIMIT 20;
+SELECT count(*) FROM plants;  
