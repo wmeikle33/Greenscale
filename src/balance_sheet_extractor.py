@@ -14,3 +14,10 @@ class BalanceSheet:
     total_equity: Optional[float]
     # raw line items if you want more detail
     line_items: Dict[str, float]
+
+def extract_text_from_pdf(path: str) -> str:
+    parts: List[str] = []
+    with pdfplumber.open(path) as pdf:
+        for page in pdf.pages:
+            parts.append(page.extract_text() or "")
+    return "\n".join(parts)
