@@ -15,3 +15,14 @@ CREATE TABLE plants (
 SELECT * FROM plants;  
 SELECT * FROM plants LIMIT 20;
 SELECT count(*) FROM plants;  
+
+SELECT
+  county,
+  COUNT(*)            AS num_orders,
+  COUNT(DISTINCT user_id) AS num_customers,
+  SUM(amount)         AS total_revenue,
+  AVG(amount)         AS avg_order_value,
+  MIN(amount)         AS min_order_value,
+  MAX(amount)         AS max_order_value
+FROM sales
+GROUP BY county;
