@@ -4,7 +4,6 @@ This repository is a public, redaction‑safe sample of a company program that e
 
 # Repository Structure
 
-.
 ├── src/            # Source code for the application or library
 ├── tests/          # Automated tests (unit, integration, etc.)
 ├── docs/           # Documentation files and additional reading (alternatively `doc`)
