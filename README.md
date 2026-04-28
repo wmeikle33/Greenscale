@@ -9,10 +9,6 @@ This repository is a public, redaction‑safe sample of a company program that e
 ├── src/
 ├── tests/
 ├── docs/
-├── build/
-├── config/
-├── scripts/
-├── assets/
 ├── LICENSE
 ├── README.md
 └── CONTRIBUTING.md
