@@ -1,7 +1,8 @@
 ## Steps
 
 1: Develope Ground Truth Masks
-2: Calculate Intersection Over Union or Dice Coefficient
+2: Calculate Intersection Over Union or Dice Coefficient for the Different Binarization Techniques
+3: 
 
 This repository is a public, redaction‑safe sample of a company program that employs a image recognition model to analyze plant root images. It demonstrates sample code without exposing any proprietary logic.
 
