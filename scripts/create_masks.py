@@ -101,7 +101,7 @@ def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, outpu
             break
             
 def main():
-    pass
+    automated_generation_with_manual_edit()
     
 if __name__ == 'main':
     main
