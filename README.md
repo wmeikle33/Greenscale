@@ -13,6 +13,7 @@ This repository is a public, redaction‑safe sample of a company program that e
 ```bash
 
 python scripts/download_data.py
+python scripts/create_masks.py
 
 ```
 
