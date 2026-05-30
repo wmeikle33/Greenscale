@@ -6,10 +6,6 @@ from src.create_masks import mouse_callback_paint
 from .data import load_csv
 from .model import train_eval_save
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DATA_PATH = PROJECT_ROOT / "data" / "raw" / "train.gz"
-DEFAULT_MODEL_PATH = PROJECT_ROOT / "models" / "model.joblib"
-
 
 def parse_args():
     ap = argparse.ArgumentParser()
@@ -26,14 +22,6 @@ def parse_args():
     )
     ap.add_argument("--test-size", type=float, default=0.2, help="Validation fraction")
     ap.add_argument("--random-state", type=int, default=42)
-    ap.add_argument("--nrows", type=int, default=200000, help="Rows to load for training")
-    ap.add_argument(
-        "--model",
-        choices=["logreg", "xgb"],
-        default="logreg",
-        help="Which model to train.",
-    )
-    ap.add_argument("--search", action="store_true", help="Enable hyperparameter search")
     ap.add_argument("--n-iter", type=int, default=20, help="Number of parameter samples")
     ap.add_argument("--cv", type=int, default=3, help="CV folds for search")
     return ap.parse_args()
