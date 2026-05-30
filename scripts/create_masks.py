@@ -5,7 +5,7 @@ from src.create_masks import mouse_callback_paint
 from src.create_masks import automated_generation_with_manual_edit
 from .data import load_csv
 from .model import train_eval_save
-
+image_path, sam_checkpoint_path, output_dir
 
 def parse_args():
     ap = argparse.ArgumentParser()
@@ -14,10 +14,9 @@ def parse_args():
         default=str(DEFAULT_DATA_PATH),
         help="Path to training CSV",
     )
-    ap.add_argument("--test-size", type=float, default=0.2, help="Validation fraction")
-    ap.add_argument("--random-state", type=int, default=42)
-    ap.add_argument("--n-iter", type=int, default=20, help="Number of parameter samples")
-    ap.add_argument("--cv", type=int, default=3, help="CV folds for search")
+    ap.add_argument("--image_path", type=str)
+    ap.add_argument("--sam_checkpoint_path", type=str)
+    ap.add_argument("--output_dir", type=str)
     return ap.parse_args()
 
 
