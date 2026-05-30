@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 
+from src.create_masks import mouse_callback_paint
 from .data import load_csv
 from .model import train_eval_save
 
@@ -48,17 +49,6 @@ def main():
     if args.label not in df.columns:
         raise ValueError(f"Label column '{args.label}' not found in {csv_path}")
 
-    metrics = train_eval_save(
-        df=df,
-        label=args.label,
-        model_path=model_path,
-        model_name=args.model,
-        random_state=args.random_state,
-        test_size=args.test_size,
-        param_search=args.search,
-        n_iter=args.n_iter,
-        cv=args.cv,
-    )
 
     print(f"Saved model to: {model_path}")
     print(f"log_loss={metrics['log_loss']:.6f}")
