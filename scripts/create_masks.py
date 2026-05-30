@@ -29,15 +29,6 @@ def main():
 
     df = load_csv(csv_path, nrows=args.nrows)
 
-    if args.label not in df.columns:
-        raise ValueError(f"Label column '{args.label}' not found in {csv_path}")
-
-
-    print(f"Saved model to: {model_path}")
-    print(f"log_loss={metrics['log_loss']:.6f}")
-    if "auc" in metrics:
-        print(f"auc={metrics['auc']:.6f}")
-
 
 if __name__ == "__main__":
     main()
