@@ -22,8 +22,6 @@ def main():
 
     raw_dir = project_root / "data" / "raw"
     raw_dir.mkdir(parents=True, exist_ok=True)
-
-    download_from_kaggle(raw_dir)
     unzip_files(raw_dir)
 
     print("Contents:", list(raw_dir.iterdir()))
