@@ -8,6 +8,8 @@ This repository is a public, redaction‑safe sample of a company program that e
 
 ✅ You can share this repo publicly. Proprietary parsing rules, vendor/OCR config, and corp data are not included.
 
+## Scripts
+
 ### File Structure
 
 <pre>
