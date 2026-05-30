@@ -99,12 +99,12 @@ def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, outpu
         elif key == 27:
             print("Editing cancelled. No files saved.")
             break
-            
+    
+    cv2.destroyAllWindows()
+
 def main():
     automated_generation_with_manual_edit()
     
 if __name__ == 'main':
     main
         
-
-    cv2.destroyAllWindows()
