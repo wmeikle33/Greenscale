@@ -14,12 +14,6 @@ def parse_args():
         default=str(DEFAULT_DATA_PATH),
         help="Path to training CSV",
     )
-    ap.add_argument("--label", default="click", help="Target column")
-    ap.add_argument(
-        "--model-path",
-        default=str(DEFAULT_MODEL_PATH),
-        help="Saved model path",
-    )
     ap.add_argument("--test-size", type=float, default=0.2, help="Validation fraction")
     ap.add_argument("--random-state", type=int, default=42)
     ap.add_argument("--n-iter", type=int, default=20, help="Number of parameter samples")
