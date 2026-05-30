@@ -2,6 +2,7 @@ import argparse
 from pathlib import Path
 
 from src.create_masks import mouse_callback_paint
+from src.create_masks import mouse_callback_paint
 from .data import load_csv
 from .model import train_eval_save
 
