@@ -3,9 +3,6 @@ from pathlib import Path
 
 from src.create_masks import mouse_callback_paint
 from src.create_masks import automated_generation_with_manual_edit
-from .data import load_csv
-from .model import train_eval_save
-image_path, sam_checkpoint_path, output_dir
 
 def parse_args():
     ap = argparse.ArgumentParser()
@@ -22,11 +19,11 @@ def parse_args():
 
 def main():
     args = parse_args()
-
-    csv_path = Path(args.csv).expanduser().resolve()
-    model_path = Path(args.model_path)
-
-    df = load_csv(csv_path, nrows=args.nrows)
+    
+    image = Path(args.image_path).expanduser().resolve()
+    sam_checkpoint = Path(args.sam_checkpoint_path)
+    ouput = Path(args.output_dir)
+    automated_generation_with_manual_edit(image, sam_checkpoint, output)
 
 
 if __name__ == "__main__":
