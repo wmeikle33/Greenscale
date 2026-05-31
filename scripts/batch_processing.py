@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from src.bacth_processing import process_entire_dataset
+from src.batch_processing import process_entire_dataset
 
 def parse_args():
     ap = argparse.ArgumentParser()
@@ -14,7 +14,6 @@ def parse_args():
     ap.add_argument("--sam_checkpoint_path", type=str)
     ap.add_argument("--output_dir", type=str)
     return ap.parse_args()
-
 
 def main():
     args = parse_args()
