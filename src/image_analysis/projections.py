@@ -51,3 +51,13 @@ def build_25d(mask):
         width_density(mask),
         branch_layer(mask),
     ], axis=-1)
+
+def save_25d(mask: np.ndarray, output_path: str | Path) -> Path:
+    """Create and save a 2.5D `.npy` file."""
+    output_path = Path(output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    features = build_25d(mask)
+    np.save(output_path, features)
+
+    return output_path
