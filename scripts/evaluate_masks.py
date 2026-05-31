@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from src.evaluate_masks import mouse_callback_paint
+from src.evaluate_masks import calculate_segmentation_metrics, evaluate_binarization_masks
 
 def parse_args():
     ap = argparse.ArgumentParser()
