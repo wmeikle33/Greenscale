@@ -1,8 +1,7 @@
 import argparse
 from pathlib import Path
 
-from src.create_masks import mouse_callback_paint
-from src.create_masks import automated_generation_with_manual_edit
+from src.bacth_processing import process_entire_dataset
 
 def parse_args():
     ap = argparse.ArgumentParser()
