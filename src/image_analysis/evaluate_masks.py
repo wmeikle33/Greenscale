@@ -1,18 +1,13 @@
 import numpy as np
+import cv2
 
 def calculate_segmentation_metrics(pred_mask, gt_mask):
-    """
-    Calculates exact IoU and Dice Coefficient for two binary arrays (0 and 1).
-    """
-    # Ensure inputs are strict binary boolean arrays for logical operations
     pred = (pred_mask > 0).astype(bool)
     gt = (gt_mask > 0).astype(bool)
     
-    # Calculate True Positives (Intersection) and Union
     intersection = np.logical_and(pred, gt).sum()
     union = np.logical_or(pred, gt).sum()
     
-    # Calculate IoU (Jaccard Index)
     if union == 0:
         iou = 1.0 if intersection == 0 else 0.0
     else:
