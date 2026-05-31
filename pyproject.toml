@@ -6,4 +6,11 @@ build-backend = "setuptools.build_meta"
 name = "imgrec"
 version = "0.1.0"
 requires-python = ">=3.9"
-dependencies = ["numpy>=1.23"]
+dependencies = [
+  "numpy>=1.23",
+  "pandas",
+  "opencv-python",
+  "scipy",
+  "scikit-image",
+  "tensorflow",
+]
