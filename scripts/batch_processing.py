@@ -22,7 +22,7 @@ def main():
     image = Path(args.image_path).expanduser().resolve()
     sam_checkpoint = Path(args.sam_checkpoint_path)
     ouput = Path(args.output_dir)
-    automated_generation_with_manual_edit(image, sam_checkpoint, output)
+    process_entire_dataset(image, sam_checkpoint, output)
 
 
 if __name__ == "__main__":
