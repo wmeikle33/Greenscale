@@ -7,7 +7,7 @@ class RootWeightPredictorNet(nn.Module):
         super(RootWeightPredictorNet, self).__init__()
         
         # 1. Simplified Encoder / Feature Extractor (Backbone)
-        self.enc1 = nn.Conv2d(1, 32, kernel_size=3, padding=1)
+        self.enc1 = nn.Conv2d(3, 32, kernel_size=3, padding=1)
         self.enc2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
         self.pool = nn.MaxPool2d(2, 2)
         
