@@ -4,6 +4,7 @@ import os
 from skimage.filters import frangi
 from segment_anything import sam_model_registry, SamPredictor
 from image_analysis.config import GROUND_TRUTH_DIR
+import torch
 # --- Global variables to track mouse editing states ---
 drawing = False
 mode = True # True = Draw (Left Click), False = Erase (Right Click)
@@ -33,8 +34,7 @@ def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, outpu
     2. Opens an interactive window allowing you to paint edits with your mouse.
     3. Saves the final manually-verified binary mask (0 and 1).
     """
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+    os.makedirs(output_dir, exist_ok=True)
 
     # 1. RUN AUTOMATED PIPELINE (From our previous step)
     print("Processing raw image with automated AI pipeline...")
@@ -92,7 +92,7 @@ def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, outpu
             output_path = os.path.join(output_dir, filename)
             
             # Save final target as strict 0 and 1
-            cv2.imwrite(output_path, final_binary_mask)
+            cv2.imwrite(output_path, final_binary_mask * 255)
             print(f"Ground truth saved to: {output_path}")
             break
         # Abort if ESC is pressed
