@@ -3,7 +3,7 @@ import numpy as np
 import os
 from skimage.filters import frangi
 from segment_anything import sam_model_registry, SamPredictor
-
+from image_analysis.config import GROUND_TRUTH_DIR
 # --- Global variables to track mouse editing states ---
 drawing = False
 mode = True # True = Draw (Left Click), False = Erase (Right Click)
