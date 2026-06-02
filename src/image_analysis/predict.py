@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import torch
 
-from image_analysis.train import TinyUNet
+from image_analysis.train import train
 
 
 MODEL_PATH = Path("models/root_distance_model.pth")
@@ -17,7 +17,7 @@ def predict():
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    model = TinyUNet().to(device)
+    model = train
     model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
     model.eval()
 
