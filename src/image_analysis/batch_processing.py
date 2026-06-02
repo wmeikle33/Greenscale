@@ -60,4 +60,3 @@ def process_entire_dataset(input_folder, output_folder, winning_method):
         output_filename = os.path.splitext(filename)[0] + "_target.npy"
         output_path = os.path.join(output_folder, output_filename)
         np.save(output_path, distance_map_normalized.astype(np.float32))
-# process_entire_dataset("path/to/raw_images", "path/to/dl_targets", winni
