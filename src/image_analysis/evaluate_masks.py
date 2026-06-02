@@ -1,7 +1,6 @@
 import numpy as np
 import cv2
 
-ground_truth_path = edited_masks
 
 def calculate_segmentation_metrics(pred_mask, gt_mask):
     pred = (pred_mask > 0).astype(bool)
