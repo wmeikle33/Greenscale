@@ -27,7 +27,7 @@ def mouse_callback_paint(event, x, y, flags, param):
     elif event == cv2.EVENT_LBUTTONUP or event == cv2.EVENT_RBUTTONUP:
         drawing = False
 
-def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, output_dir="edited_masks"):
+def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, output_dir=GROUND_TRUTH_DIR):
     """
     1. Automatically generates a high-quality thin root mask via SAM.
     2. Opens an interactive window allowing you to paint edits with your mouse.
