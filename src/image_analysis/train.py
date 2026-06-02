@@ -55,7 +55,7 @@ class RootWeightDataset(Dataset):
 def train():
     csv_path = "data/root_weights.csv"
     image_dir = "data/raw"
-    target_dir = "data/targets"  # optional distance-transform maps
+    target_dir = "data/targets"  
 
     batch_size = 8
     epochs = 50
