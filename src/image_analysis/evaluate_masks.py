@@ -42,4 +42,8 @@ def evaluate_binarization_methods(mask_adaptive, mask_frangi, mask_morph, ground
     scores = {"Adaptive": iou_adapt, "Frangi": iou_fran, "Morphological": iou_morph}
     winner = max(scores, key=scores.get)
     
-    return winner
+    return {
+        "winner": winner,
+        "scores": scores,
+    }
+
