@@ -1,12 +1,26 @@
-## Steps
+# Greenscale
 
-```bash
+Greenscale is an image-analysis and machine-learning pipeline for estimating root biomass from plant images.
 
-1: Develope Ground Truth Masks
-2: Calculate Intersection Over Union or Dice Coefficient for the Different Binarization Techniques
-3: Implement Chosen Binarization Technique
+The project combines classical computer vision techniques (adaptive thresholding, Frangi filtering, and morphological operations) with deep learning to generate root masks and predict root weight.
 
-```
+This public repository is a redacted demonstration of techniques used in agricultural image analysis workflows.
+
+## Workflow
+
+Raw Images
+    ↓
+Image Binarization
+    ↓
+Mask Evaluation
+    ↓
+Best Method Selection
+    ↓
+Target Map Generation
+    ↓
+Neural Network Training
+    ↓
+Root Weight Prediction
 
 This repository is a public, redaction‑safe sample of a company program that employs a image recognition model to analyze plant root images. It demonstrates sample code without exposing any proprietary logic.
 
