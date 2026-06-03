@@ -30,6 +30,23 @@ This repository is a public, redaction‑safe sample of a company program that e
 
 ✅ You can share this repo publicly. Proprietary parsing rules, vendor/OCR config, and corp data are not included.
 
+## Pipeline
+
+```bash
+
+The preprocessing workflow:
+
+1. Load sample root images.
+2. Apply multiple binarization methods:
+   - Adaptive Thresholding
+   - Frangi Vessel Enhancement
+   - Morphological Segmentation
+3. Compare generated masks against ground-truth masks.
+4. Select the best-performing method.
+5. Generate target maps for the full dataset.
+
+```
+
 ## Scripts
 
 ```bash
