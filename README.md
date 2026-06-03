@@ -8,6 +8,8 @@ This public repository is a redacted demonstration of techniques used in agricul
 
 ## Workflow
 
+```bash
+
 Raw Images
     ↓
 Image Binarization
@@ -21,6 +23,8 @@ Target Map Generation
 Neural Network Training
     ↓
 Root Weight Prediction
+
+```
 
 This repository is a public, redaction‑safe sample of a company program that employs a image recognition model to analyze plant root images. It demonstrates sample code without exposing any proprietary logic.
 
