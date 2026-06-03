@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class DenseThinRootHuberLoss(nn.Module):
-    def __init__(self, delta=0.08, beta_foreground=15.0, beta_separation=25.0):
+    def __init__(self, delta=0.08, beta_foreground=25.0, beta_separation=10.0):
         """
         Custom Spatially-Adaptive Loss for Dense, Highly-Branched Thin Roots.
         
