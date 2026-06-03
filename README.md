@@ -22,6 +22,7 @@ python scripts/evaluate_masks.py
 python scripts/pipeline.py
 python scripts/train.py
 python scripts/predict.py
+python scripts/run_workflow.py
 
 ```
 
