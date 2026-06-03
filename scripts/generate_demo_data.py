@@ -22,8 +22,8 @@ def main() -> None:
     cv2.circle(mask, (90, 120), 45, 255, -1)
     cv2.rectangle(mask, (145, 70), (210, 170), 255, -1)
 
-    cv2.imwrite(str(RAW_DIR / "demo_001.png"), image)
-    cv2.imwrite(str(MASK_DIR / "demo_001_mask.png"), mask)
+    cv2.imwrite(str(RAW_DIR / "example.png"), image)
+    cv2.imwrite(str(MASK_DIR / "example.png"), mask)
 
     print(f"Wrote demo image to {RAW_DIR}")
     print(f"Wrote demo mask to {MASK_DIR}")
