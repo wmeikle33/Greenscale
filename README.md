@@ -47,17 +47,40 @@ The preprocessing workflow:
 
 ```
 
-## Scripts
+## Model
+
+The model performs multi-task learning:
+
+### Root Weight Regression
+Predicts total root biomass.
+
+Loss:
+- SmoothL1Loss
+
+### Root Structure Prediction
+Predicts dense root maps used as auxiliary supervision.
+
+Loss:
+- DenseThinRootHuberLoss
+
+Combined Loss:
+
+Loss = WeightLoss + 0.05 × MapLoss
+
+## Quickstart
 
 ```bash
 
-python scripts/download_data.py
-python scripts/create_masks.py
-python scripts/evaluate_masks.py
-python scripts/pipeline.py
-python scripts/train.py
-python scripts/predict.py
-python scripts/run_workflow.py
+Clone the repository:
+
+git clone https://github.com/wmeikle33/Greenscale.git
+cd Greenscale
+pip install -e .
+python scripts/generate_demo_data.py
+python -m image_analysis.pipeline
+python -m image_analysis.train
+
+
 
 ```
 
