@@ -14,3 +14,10 @@ dependencies = [
   "scikit-image",
   "tensorflow",
 ]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "black",
+    "ruff",
+]
