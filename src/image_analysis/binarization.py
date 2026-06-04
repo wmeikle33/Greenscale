@@ -22,6 +22,9 @@ def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
     )
     # Convert from 0/255 to strict deep learning target 0/1
     mask_adaptive = (adaptive_raw > 127).astype(np.uint8)
+    kernel = np.ones((3,3), np.uint8)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
 
     # -------------------------------------------------------------------------
     # METHOD 2: Hessian / Frangi Ridge Filtering
@@ -30,6 +33,9 @@ def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
     ridge_probability = frangi(img_float, sigmas=np.arange(1, 4, 1))
     t = threshold_otsu(ridge_probability)
     mask_frangi = (ridge_probability > t)
+    kernel = np.ones((3,3), np.uint8)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
     
     # -------------------------------------------------------------------------
     # METHOD 3: Morphological Contrast Enhancement (Top-Hat)
@@ -45,6 +51,9 @@ def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
     # Apply a standard threshold to the freshly amplified thin structures
     _, enhanced_raw = cv2.threshold(enhanced_img, 70, 255, cv2.THRESH_BINARY)
     mask_morph = (enhanced_raw > 127).astype(np.uint8)
+    kernel = np.ones((3,3), np.uint8)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
 
     # -------------------------------------------------------------------------
     # Optional: Save the masks back to disk to inspect visually (as 0-255 images)
