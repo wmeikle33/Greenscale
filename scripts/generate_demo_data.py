@@ -1,12 +1,13 @@
 from pathlib import Path
-
+import pandas as pd
 import cv2
 import numpy as np
 
-
 ROOT = Path(__file__).resolve().parents[1]
-RAW_DIR = ROOT / "data" / "raw"
-MASK_DIR = ROOT / "data" / "ground_truth_masks"
+DATA_DIR = ROOT / "data"
+RAW_DIR = DATA_DIR / "raw"
+MASK_DIR = DATA_DIR / "ground_truth_masks"
+TARGET_DIR = DATA_DIR / "targets"
 
 
 def main() -> None:
