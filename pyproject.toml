@@ -13,6 +13,8 @@ dependencies = [
   "scipy",
   "scikit-image",
   "torch",
+  "torchvision",
+  "pillow",
   "tensorflow",
 ]
 
