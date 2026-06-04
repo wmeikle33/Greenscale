@@ -50,7 +50,7 @@ def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
     enhanced_img = cv2.addWeighted(img, 1.0, tophat, 2.0, 0)
     
     # Apply a standard threshold to the freshly amplified thin structures
-    _, enhanced_raw = cv2.threshold(enhanced_img, 70, 255, cv2.THRESH_BINARY)
+    _, enhanced_raw = cv2.threshold(enhanced_img,0,255,cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     mask_morph = (enhanced_raw > 127).astype(np.uint8)
     kernel = np.ones((3,3), np.uint8)
     mask_morph = cv2.morphologyEx(mask_morph, cv2.MORPH_OPEN, kernel)
