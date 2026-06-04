@@ -80,6 +80,16 @@ def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
     # Apply a standard threshold to the freshly amplified thin structures
     _, enhanced_raw = cv2.threshold(enhanced_img, 70, 255, cv2.THRESH_BINARY)
     mask_morph = (enhanced_raw > 127).astype(np.uint8)
+    # -------------------------------------------------------------------------
+    # METHOD 4: Combined Method
+    # -------------------------------------------------------------------------
+
+    combined = (
+    mask_adaptive.astype(int)
+    + mask_frangi.astype(int)
+    + mask_morph.astype(int)
+    )
+    mask_ensemble = (combined >= 2).astype(np.uint8)
 
     # -------------------------------------------------------------------------
     # Optional: Save the masks back to disk to inspect visually (as 0-255 images)
