@@ -25,14 +25,16 @@ def main() -> None:
     cv2.imwrite(str(RAW_DIR / "example.png"), image)
     cv2.imwrite(str(MASK_DIR / "example.png"), mask)
 
+    target = (mask / 255.0).astype("float32")
+    np.save(TARGET_DIR / "example_target.npy", target)
+
     root_weights = pd.DataFrame(
-    {
-        "image_id": ["demo_001", "demo_002", "demo_003", "demo_004"],
-        "root_weight": [1.2, 1.5, 0.9, 1.8],
-    }
-
+        {
+            "image_filename": ["example.png"],
+            "root_weight": [1.2],
+        }
+    )
     root_weights.to_csv(DATA_DIR / "root_weights.csv", index=False)
-
 
     print(f"Wrote demo image to {RAW_DIR}")
     print(f"Wrote demo mask to {MASK_DIR}")
