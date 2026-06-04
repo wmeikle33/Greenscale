@@ -17,14 +17,14 @@ def main():
         output_prefix="outputs/example"
     )
 
-    scores = evaluate_binarization_methods(
+    results = evaluate_binarization_methods(
         adaptive,
         frangi,
         morph,
         str(gt_path)
     )
 
-    winner = max(scores, key=scores.get).lower()
+    winner = results["winner"].lower()
 
     if winner == "morphological":
         winner = "morphological"
