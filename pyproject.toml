@@ -24,3 +24,13 @@ dev = [
     "black",
     "ruff",
 ]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
