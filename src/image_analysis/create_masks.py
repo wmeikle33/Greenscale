@@ -5,9 +5,9 @@ from skimage.filters import frangi
 from segment_anything import sam_model_registry, SamPredictor
 from image_analysis.config import GROUND_TRUTH_DIR
 import torch
-# --- Global variables to track mouse editing states ---
+
 drawing = False
-mode = True # True = Draw (Left Click), False = Erase (Right Click)
+mode = True 
 ix, iy = -1, -1
 brush_size = 3
 
@@ -29,11 +29,7 @@ def mouse_callback_paint(event, x, y, flags, param):
         drawing = False
 
 def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, output_dir=GROUND_TRUTH_DIR):
-    """
-    1. Automatically generates a high-quality thin root mask via SAM.
-    2. Opens an interactive window allowing you to paint edits with your mouse.
-    3. Saves the final manually-verified binary mask (0 and 1).
-    """
+    
     os.makedirs(output_dir, exist_ok=True)
 
     # 1. RUN AUTOMATED PIPELINE (From our previous step)
@@ -60,7 +56,6 @@ def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, outpu
     else:
         auto_mask = np.zeros(gray.shape, dtype=np.uint8)
 
-    # 2. OPEN THE INTERACTIVE EDITING WORKBENCH
     print("\n🎨 Opening Editor Window...")
     print("👉 INSTRUCTIONS:")
     print(" - HOLD LEFT MOUSE BUTTON to paint/add a missing thin root.")
@@ -69,23 +64,18 @@ def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, outpu
     print(" - Press 'ESC' to discard changes and exit.")
 
     cv2.namedWindow('Root Mask Editor', cv2.WINDOW_NORMAL)
-    # Pass our automatically generated mask as the canvas to edit
     cv2.setMouseCallback('Root Mask Editor', mouse_callback_paint, param=auto_mask)
 
     while True:
-        # Create an overlay so you can see the original image and your edits together
-        # Your edits will appear as a bright green overlay on top of the root image
         display_img = image.copy()
         green_overlay = np.zeros_like(image)
         green_overlay[:, :, 1] = auto_mask # Put mask in green channel
         
-        # Blend original image and mask (alpha=0.6 image, beta=0.4 mask overlay)
         blended = cv2.addWeighted(display_img, 0.6, green_overlay, 0.4, 0)
         
         cv2.imshow('Root Mask Editor', blended)
         key = cv2.waitKey(1) & 0xFF
         
-        # Save and close if 's' is pressed
         if key == ord('s'):
             final_binary_mask = (auto_mask > 127).astype(np.uint8)
             filename = os.path.basename(image_path)
@@ -95,7 +85,6 @@ def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, outpu
             cv2.imwrite(output_path, final_binary_mask * 255)
             print(f"Ground truth saved to: {output_path}")
             break
-        # Abort if ESC is pressed
         elif key == 27:
             print("Editing cancelled. No files saved.")
             break
