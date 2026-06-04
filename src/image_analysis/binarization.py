@@ -1,6 +1,7 @@
-import cv2
-import numpy as np
+import numpy as np 
 from skimage.filters import frangi
+from skimage.filters import threshold_otsu
+
 
 def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
     """
@@ -24,6 +25,35 @@ def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
 
     # -------------------------------------------------------------------------
     # METHOD 2: Hessian / Frangi Ridge Filtering
+    # -------------------------------------------------------------------------
+    img_float = img.astype(np.float32) / 255.0
+    ridge_probability = frangi(img_float, sigmas=np.arange(1, 4, 1))
+    t = threshold_otsu(ridge_probability)
+    mask_frangi = (ridge_probability > t)
+    
+    # -------------------------------------------------------------------------
+    # METHOD 3: Morphological Contrast Enhancement (Top-Hat)
+    # -------------------------------------------------------------------------
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+    
+    # Top-hat isolates features brighter than their surroundings within the 3x3 region
+    tophat = cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel)
+    
+    # Boost the contrast of fine details heavily
+    enhanced_img = cv2.addWeighted(img, 1.0, tophat, 2.0, 0)
+    
+    # Apply a standard threshold to the freshly amplified thin structures
+    _, enhanced_raw = cv2.threshold(enhanced_img, 70, 255, cv2.THRESH_BINARY)
+    mask_morph = (enhanced_raw > 127).astype(np.uint8)
+
+    # -------------------------------------------------------------------------
+    # Optional: Save the masks back to disk to inspect visually (as 0-255 images)
+    # -------------------------------------------------------------------------
+    cv2.imwrite(f"{output_prefix}_adaptive.png", mask_adaptive * 255)
+    cv2.imwrite(f"{output_prefix}_frangi.png", mask_frangi * 255)
+    cv2.imwrite(f"{output_prefix}_morphological.png", mask_morph * 255)
+
+    return mask_adaptive, mask_frangi, mask_morph
     ridge_probability = frangi(img, sigmas=np.arange(1, 4, 1))
     mask_frangi = (ridge_probability > 0.05).astype(np.uint8)
 
