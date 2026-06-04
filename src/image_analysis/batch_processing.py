@@ -5,15 +5,10 @@ import scipy.ndimage as ndimage
 from skimage.filters import frangi
 
 def process_entire_dataset(input_folder, output_folder, winning_method):
-    """
-    Loops through an entire folder of raw root images, binarizes them 
-    using the winning method, calculates the normalized distance transform,
-    and saves the final deep learning target maps.
-    """
+
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
         
-    # Get all images in the input directory
     valid_extensions = ('.png', '.jpg', '.jpeg', '.tif', '.tiff')
     image_files = [f for f in os.listdir(input_folder) if f.lower().endswith(valid_extensions)]
     
