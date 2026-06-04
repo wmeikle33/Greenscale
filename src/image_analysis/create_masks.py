@@ -17,10 +17,10 @@ def mouse_callback_paint(event, x, y, flags, param):
 
     if event == cv2.EVENT_LBUTTONDOWN:
         drawing = True
-        mode = True # Set to Add Root
+        mode = True 
     elif event == cv2.EVENT_RBUTTONDOWN:
         drawing = True
-        mode = False # Set to Erase Noise
+        mode = False 
     elif event == cv2.EVENT_MOUSEMOVE:
         if drawing:
             color = 255 if mode else 0
@@ -32,7 +32,6 @@ def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, outpu
     
     os.makedirs(output_dir, exist_ok=True)
 
-    # 1. RUN AUTOMATED PIPELINE (From our previous step)
     print("Processing raw image with automated AI pipeline...")
     image = cv2.imread(image_path)
     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
