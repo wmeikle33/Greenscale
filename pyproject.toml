@@ -12,6 +12,7 @@ dependencies = [
   "opencv-python",
   "scipy",
   "scikit-image",
+  "torch",
   "tensorflow",
 ]
 
