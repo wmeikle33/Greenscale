@@ -60,7 +60,8 @@ class RootWeightDataset(Dataset):
         weight = torch.tensor(row["root_weight"], dtype=torch.float32)
 
         if self.target_dir:
-            target_path = self.target_dir / row["image_filename"].replace(".png", "_target.npy")
+            target_path = self.target_dir / row["image_filename"].replace(".png"
+            , "_target.npy")
             target_map = torch.tensor(
                 __import__("numpy").load(target_path),
                 dtype=torch.float32
