@@ -1,7 +1,6 @@
 import numpy as np
 
-from image_analysis.pipeline import calculate_segmentation_metrics
-
+from image_analysis.metrics import calculate_metrics
 
 def test_calculate_segmentation_metrics_perfect_match():
     ground_truth = np.array(
