@@ -20,7 +20,6 @@ def test_calculate_segmentation_metrics_perfect_match():
     assert "dice" in metrics
     assert "precision" in metrics
     assert "recall" in metrics
-
     assert metrics["iou"] == 1.0
     assert metrics["dice"] == 1.0
     assert metrics["precision"] == 1.0
