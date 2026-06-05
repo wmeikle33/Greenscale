@@ -10,7 +10,7 @@ def generate_demo_data(output_dir: Path, num_images: int = 1) -> None:
     RAW_DIR = DATA_DIR / "raw"
     MASK_DIR = DATA_DIR / "ground_truth_masks"
     TARGET_DIR = DATA_DIR / "targets"
-    
+
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     MASK_DIR.mkdir(parents=True, exist_ok=True)
     TARGET_DIR.mkdir(parents=True, exist_ok=True)
