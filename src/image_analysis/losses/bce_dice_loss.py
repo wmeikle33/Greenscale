@@ -4,58 +4,45 @@ import torch.nn.functional as F
 
 
 class BCEDiceLoss(nn.Module):
-    """
-    Combined Binary Cross Entropy + Dice Loss.
-
-    Args:
-        bce_weight (float): Weight applied to BCE loss.
-        dice_weight (float): Weight applied to Dice loss.
-        smooth (float): Smoothing factor to avoid division by zero.
-    """
-
     def __init__(
         self,
-        bce_weight: float = 0.5,
-        dice_weight: float = 0.5,
-        smooth: float = 1e-6,
+        bce_weight=0.3,
+        dice_weight=0.7,
+        pos_weight=None,
+        smooth=1e-6,
     ):
         super().__init__()
         self.bce_weight = bce_weight
         self.dice_weight = dice_weight
+        self.pos_weight = pos_weight
         self.smooth = smooth
 
-    def dice_loss(
-        self,
-        predictions: torch.Tensor,
-        targets: torch.Tensor,
-    ) -> torch.Tensor:
-        predictions = torch.sigmoid(predictions)
+    def forward(self, predictions, targets):
+        targets = targets.float()
 
-        predictions = predictions.view(-1)
-        targets = targets.view(-1)
+        pos_weight = None
+        if self.pos_weight is not None:
+            pos_weight = torch.tensor(
+                [self.pos_weight],
+                device=predictions.device,
+                dtype=predictions.dtype,
+            )
 
-        intersection = (predictions * targets).sum()
-
-        dice_score = (
-            (2.0 * intersection + self.smooth)
-            / (predictions.sum() + targets.sum() + self.smooth)
-        )
-
-        return 1.0 - dice_score
-
-    def forward(
-        self,
-        predictions: torch.Tensor,
-        targets: torch.Tensor,
-    ) -> torch.Tensor:
         bce = F.binary_cross_entropy_with_logits(
             predictions,
-            targets.float(),
+            targets,
+            pos_weight=pos_weight,
         )
 
-        dice = self.dice_loss(predictions, targets)
+        probs = torch.sigmoid(predictions)
 
-        return (
-            self.bce_weight * bce
-            + self.dice_weight * dice
+        probs = probs.view(-1)
+        targets = targets.view(-1)
+
+        intersection = (probs * targets).sum()
+        dice = 1 - (
+            (2 * intersection + self.smooth)
+            / (probs.sum() + targets.sum() + self.smooth)
         )
+
+        return self.bce_weight * bce + self.dice_weight * dice
