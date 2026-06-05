@@ -40,9 +40,6 @@ def set_seed(seed: int):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
 
-args = parse_args()
-set_seed(args.seed)
-
 
 class RootWeightDataset(Dataset):
     def __init__(self, csv_path, image_dir, target_dir=None, image_size=256):
@@ -181,7 +178,8 @@ def train():
 
 def main():
     args = parse_args()
-    train_model(
+    set_seed(args.seed)
+    train(
         data_dir=args.data_dir,
         epochs=args.epochs,
         lr=args.lr,
@@ -189,4 +187,4 @@ def main():
     )
 
 if __name__ == "__main__":
-    train()
+    main()
