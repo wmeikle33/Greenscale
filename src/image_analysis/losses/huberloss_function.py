@@ -28,7 +28,8 @@ class DenseThinRootHuberLoss(nn.Module):
         # 3. COMPUTE THE SEPARATION MAP (Find close-proximity valleys)
         # We use a max-pooling operation to create a structural "halo" around the tracks.
         # This highlights background pixels trapped right between nearby thin lines.
-        dilated_targets = F.max_pool2d(targets, kernel_size=5, stride=1, padding=2)
+        dilated_targets = F.max_pool2d(targets, kernel_size=5, stride=1, 
+        padding=2)
         
         # Separation boundaries exist where there is a dilated neighbor presence,
         # but the actual ground truth pixel is pure background soil (0.0)
