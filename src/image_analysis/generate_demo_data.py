@@ -4,14 +4,12 @@ import cv2
 import numpy as np
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[1]
-DATA_DIR = ROOT / "data"
-RAW_DIR = DATA_DIR / "raw"
-MASK_DIR = DATA_DIR / "ground_truth_masks"
-TARGET_DIR = DATA_DIR / "targets"
-
-
-def main() -> None:
+def generate_demo_data(output_dir: Path, num_images: int = 1) -> None:
+    ROOT = Path(__file__).resolve().parents[1]
+    DATA_DIR = ROOT / "data"
+    RAW_DIR = DATA_DIR / "raw"
+    MASK_DIR = DATA_DIR / "ground_truth_masks"
+    TARGET_DIR = DATA_DIR / "targets"
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     MASK_DIR.mkdir(parents=True, exist_ok=True)
     TARGET_DIR.mkdir(parents=True, exist_ok=True)
@@ -43,6 +41,10 @@ def main() -> None:
     print(f"Wrote demo mask to {MASK_DIR}")
     print("Wrote data/root_weights.csv")
 
+def main() -> None:
+    root = Path(__file__).resolve().parents[1]
+    generate_demo_data(output_dir=root / "data", num_images=1)
+    print("Wrote demo data to data/")
 
 if __name__ == "__main__":
     main()
