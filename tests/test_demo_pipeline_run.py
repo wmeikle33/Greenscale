@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from image_analysis.generate_demo_data import generate_demo_data
 from image_analysis.pipeline import run_pipeline
 
