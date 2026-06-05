@@ -10,7 +10,8 @@ def process_entire_dataset(input_folder, output_folder, winning_method):
         os.makedirs(output_folder)
         
     valid_extensions = ('.png', '.jpg', '.jpeg', '.tif', '.tiff')
-    image_files = [f for f in os.listdir(input_folder) if f.lower().endswith(valid_extensions)]
+    image_files = [f for f in os.listdir(input_folder) if 
+    f.lower().endswith(valid_extensions)]
     
     print(f"Starting batch processing for {len(image_files)} images...")
     
