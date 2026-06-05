@@ -27,7 +27,7 @@ class DenseThinRootHuberLoss(nn.Module):
         
         # 3. COMPUTE THE SEPARATION MAP (Find close-proximity valleys)
         # We use a max-pooling operation to create a structural "halo" around the 
-        tracks.
+        # tracks.
         # This highlights background pixels trapped right between nearby thin lines.
         dilated_targets = F.max_pool2d(targets, kernel_size=5, stride=1, 
         padding=2)
