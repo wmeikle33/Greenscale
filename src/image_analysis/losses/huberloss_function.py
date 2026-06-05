@@ -39,7 +39,8 @@ class DenseThinRootHuberLoss(nn.Module):
         # - Soil Pixels get a baseline weight of 1.0
         # - Thin root tracks get boosted by beta_fg
         # - Critical empty valleys between branches get boosted heavily by beta_sep
-        weight_matrix = 1.0 + (self.beta_fg - 1.0) * fg_mask + self.beta_sep * separation_valleys
+        weight_matrix = 1.0 + (self.beta_fg - 1.0) * fg_mask + self.beta_sep 
+        * separation_valleys
         
         # 5. Apply the spatial weights and reduce to batch mean scalar
         weighted_loss = weight_matrix * raw_huber_loss
