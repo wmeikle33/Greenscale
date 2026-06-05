@@ -21,6 +21,7 @@ def main():
         adaptive,
         frangi,
         morph,
+        ensemble,
         str(gt_path)
     )
 
@@ -30,8 +31,10 @@ def main():
         winner = "morphological"
     elif winner == "frangi":
         winner = "frangi"
-    else:
+    elif winner == "adaptive"
         winner = "adaptive"
+    else:
+        winner = "ensemble"
 
     process_entire_dataset(
         input_folder=str(RAW_DIR),
