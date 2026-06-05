@@ -1,47 +1,61 @@
 import torch
-from torch import nn
+import torch.nn as nn
+import torch.nn.functional as F
 
 
-class AdaptiveWingLoss(nn.Module):
-    def __init__(self, omega=14.0, theta=0.5, epsilon=1.0, alpha=2.1):
+class BCEDiceLoss(nn.Module):
+    """
+    Combined Binary Cross Entropy + Dice Loss.
+
+    Args:
+        bce_weight (float): Weight applied to BCE loss.
+        dice_weight (float): Weight applied to Dice loss.
+        smooth (float): Smoothing factor to avoid division by zero.
+    """
+
+    def __init__(
+        self,
+        bce_weight: float = 0.5,
+        dice_weight: float = 0.5,
+        smooth: float = 1e-6,
+    ):
         super().__init__()
-        self.omega = omega
-        self.theta = theta
-        self.epsilon = epsilon
-        self.alpha = alpha
+        self.bce_weight = bce_weight
+        self.dice_weight = dice_weight
+        self.smooth = smooth
 
-    def forward(self, pred, target):
-        error = torch.abs(target - pred)
+    def dice_loss(
+        self,
+        predictions: torch.Tensor,
+        targets: torch.Tensor,
+    ) -> torch.Tensor:
+        predictions = torch.sigmoid(predictions)
 
-        alpha_minus_y = self.alpha - target
+        predictions = predictions.view(-1)
+        targets = targets.view(-1)
 
-        small_error_loss = (
-            self.omega
-            * torch.log(
-                1
-                + torch.pow(error / self.epsilon, alpha_minus_y)
-            )
+        intersection = (predictions * targets).sum()
+
+        dice_score = (
+            (2.0 * intersection + self.smooth)
+            / (predictions.sum() + targets.sum() + self.smooth)
         )
 
-        A = (
-            self.omega
-            * (1 / (1 + torch.pow(self.theta / self.epsilon, alpha_minus_y)))
-            * alpha_minus_y
-            * torch.pow(self.theta / self.epsilon, alpha_minus_y - 1)
-            / self.epsilon
+        return 1.0 - dice_score
+
+    def forward(
+        self,
+        predictions: torch.Tensor,
+        targets: torch.Tensor,
+    ) -> torch.Tensor:
+        bce = F.binary_cross_entropy_with_logits(
+            predictions,
+            targets.float(),
         )
 
-        C = (
-            self.theta * A
-            - self.omega
-            * torch.log(
-                1
-                + torch.pow(self.theta / self.epsilon, alpha_minus_y)
-            )
+        dice = self.dice_loss(predictions, targets)
+
+        return (
+            self.bce_weight * bce
+            + self.dice_weight * dice
         )
-
-        large_error_loss = A * error - C
-
-        loss = torch.where(error < self.theta, small_error_loss, large_error_loss)
-
-        return loss.mean()
