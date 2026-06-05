@@ -1,3 +1,7 @@
+[![CI](https://github.com/wmeikle33/Greenscale/actions/workflows/ci.yml/badge.svg)](https://github.com/wmeikle33/Greenscale/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+
 # Greenscale
 
 Greenscale is an image-analysis and machine-learning pipeline for estimating root biomass from plant images.
