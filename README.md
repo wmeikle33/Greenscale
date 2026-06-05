@@ -100,10 +100,30 @@ Clone the repository:
 
 git clone https://github.com/wmeikle33/Greenscale.git
 cd Greenscale
+
+Create and activate a virtual environment
+
+python -m venv .venv
+source .venv/bin/activate
+
+Install the package
+
 pip install -e .
+
+Run the tests
+
 pytest
+
+Generate demo data
+
 python scripts/generate_demo_data.py
+
+Run image analysis pipeline
+
 python -m image_analysis.pipeline
+
+Train the demo model
+
 python -m image_analysis.train
 
 
