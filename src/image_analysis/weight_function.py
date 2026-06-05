@@ -30,7 +30,8 @@ class RootWeightPredictorNet(nn.Module):
         
         # --- PATHWAY A: 2.5D Segmentation Mapping ---
         # Upsample back to original image size
-        up = F.interpolate(bottleneck, scale_factor=4, mode='bilinear', align_corners=True)
+        up = F.interpolate(bottleneck, scale_factor=4, mode='bilinear', align_corners=True
+        )
         d1 = F.relu(self.dec1(up))
         map_25d = torch.sigmoid(self.seg_out(d1)) # Forces pixels between 0.0 and 1.0
         
