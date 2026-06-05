@@ -9,11 +9,6 @@ import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader, random_split
 from torchvision import transforms
-
-# Allows imports from src/
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.append(str(ROOT / "src"))
-
 from image_analysis.weight_function import RootWeightPredictorNet
 from image_analysis.losses.huberloss_function import DenseThinRootHuberLoss
 
@@ -75,14 +70,12 @@ class RootWeightDataset(Dataset):
         return image, weight
 
 
-def train():
-    csv_path = "data/root_weights.csv"
-    image_dir = "data/raw"
-    target_dir = "data/targets"  
+def train(data_dir, output_dir, epochs, lr, val_split, seed):
+    csv_path = Path(data_dir) / "root_weights.csv"
+    image_dir = Path(data_dir) / "raw"
+    target_dir = Path(data_dir) / "targets"
 
     batch_size = 8
-    epochs = 50
-    lr = 1e-4
     aux_map_weight = 0.05
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -94,10 +87,15 @@ def train():
         image_size=256,
     )
 
-    val_size = max(1, int(0.2 * len(dataset)))
+    val_size = max(1, int(val_split * len(dataset)))
     train_size = len(dataset) - val_size
-
-    train_ds, val_ds = random_split(dataset, [train_size, val_size])
+    
+    generator = torch.Generator().manual_seed(seed)
+    train_ds, val_ds = random_split(
+        dataset,
+        [train_size, val_size],
+        generator=generator,
+    )
 
     train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True)
     val_loader = DataLoader(val_ds, batch_size=batch_size)
@@ -110,7 +108,8 @@ def train():
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
 
     best_val_loss = float("inf")
-    os.makedirs("models", exist_ok=True)
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     for epoch in range(epochs):
         model.train()
@@ -171,7 +170,7 @@ def train():
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss
-            torch.save(model.state_dict(), "models/best_root_weight_model.pt")
+            torch.save(model.state_dict(), output_dir / "best_root_weight_model.pt")
             print("Saved best model")
 
     print("Training complete.")
@@ -181,8 +180,10 @@ def main():
     set_seed(args.seed)
     train(
         data_dir=args.data_dir,
+        output_dir=args.output_dir,
         epochs=args.epochs,
         lr=args.lr,
+        val_split=args.val_split,
         seed=args.seed,
     )
 
