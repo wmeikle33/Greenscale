@@ -31,7 +31,7 @@ def main():
         winner = "morphological"
     elif winner == "frangi":
         winner = "frangi"
-    elif winner == "adaptive"
+    elif winner == "adaptive":
         winner = "adaptive"
     else:
         winner = "ensemble"
