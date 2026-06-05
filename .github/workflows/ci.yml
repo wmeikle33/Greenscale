@@ -7,10 +7,16 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      # Grant write permissions so the runner can push the fixes back to GitHub
+      contents: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Crucial for PRs: checks out the actual branch instead of a detached HEAD
+          ref: ${{ github.head_ref || github.ref }}
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -23,13 +29,21 @@ jobs:
           pip install -e .
           pip install pytest ruff black
 
-      - name: Lint with Ruff
+      # 1. Run Ruff with the --fix flag to clean up whitespace and other errors
+      - name: Auto-fix with Ruff
         run: |
-          ruff check .
+          ruff check . --fix
 
-      - name: Check formatting
+      # 2. Run Black to automatically format the code instead of just checking it
+      - name: Auto-format with Black
         run: |
-          black --check .
+          black .
+
+      # 3. Commit and push any automatic changes back to your branch
+      - name: Push automated style fixes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "style: auto-fix linting and formatting errors"
 
       - name: Generate demo data
         run: |
