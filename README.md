@@ -76,7 +76,7 @@ Clone the repository:
 git clone https://github.com/wmeikle33/Greenscale.git
 cd Greenscale
 pip install -e .
-python scripts/generate_demo_data.py
+python -m image_analysis.generate_demo_data
 python -m image_analysis.pipeline
 python -m image_analysis.train
 
