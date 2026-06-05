@@ -28,7 +28,8 @@ def mouse_callback_paint(event, x, y, flags, param):
     elif event == cv2.EVENT_LBUTTONUP or event == cv2.EVENT_RBUTTONUP:
         drawing = False
 
-def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, output_dir=GROUND_TRUTH_DIR):
+def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, 
+    output_dir=GROUND_TRUTH_DIR):
     
     os.makedirs(output_dir, exist_ok=True)
 
@@ -52,7 +53,7 @@ def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, outpu
         
         masks, _, _ = predictor.predict(input_points, input_labels, 
         multimask_output=False)
-        auto_mask = (masks[0] * 255).astype(np.uint8) # Scale to 0-255 for display
+        auto_mask = (masks[0] * 255).astype(np.uint8) 
     else:
         auto_mask = np.zeros(gray.shape, dtype=np.uint8)
 
