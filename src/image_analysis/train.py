@@ -179,6 +179,14 @@ def train():
 
     print("Training complete.")
 
+def main():
+    args = parse_args()
+    train_model(
+        data_dir=args.data_dir,
+        epochs=args.epochs,
+        lr=args.lr,
+        seed=args.seed,
+    )
 
 if __name__ == "__main__":
     train()
