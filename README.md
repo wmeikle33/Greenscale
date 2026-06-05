@@ -95,4 +95,3 @@ python -m image_analysis.train
 ├── docs/
 ├── LICENSE
 ├── README.md
-└── CONTRIBUTING.md
