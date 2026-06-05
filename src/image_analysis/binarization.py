@@ -73,6 +73,6 @@ def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
     cv2.imwrite(f"{output_prefix}_adaptive.png", mask_adaptive * 255)
     cv2.imwrite(f"{output_prefix}_frangi.png", mask_frangi * 255)
     cv2.imwrite(f"{output_prefix}_morphological.png", mask_morph * 255)
-    cv2.imwrite(f"{output_prefix}_combined.png", mask_combined * 255)
+    cv2.imwrite(f"{output_prefix}_combined.png", mask_ensemble * 255)
 
-    return mask_adaptive, mask_frangi, mask_morph, mask_combined
+    return mask_adaptive, mask_frangi, mask_morph, mask_ensemble
