@@ -6,7 +6,6 @@ class DenseThinRootHuberLoss(nn.Module):
     def __init__(self, delta=0.1, beta_foreground=25.0, beta_separation=10.0):
         """
         Custom Spatially-Adaptive Loss for Dense, Highly-Branched Thin Roots.
-        
         Parameters:
         - delta: Huber threshold (optimized for thin 0.0 - 1.0 fractional gradients).
         - beta_foreground: Scale factor to balance tiny thin roots vs vast soil
