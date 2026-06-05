@@ -6,6 +6,27 @@ The project combines classical computer vision techniques (adaptive thresholding
 
 This public repository is a redacted demonstration of techniques used in agricultural image analysis workflows.
 
+# Repository Scope
+This repository is a redacted demonstration of a proprietary computer vision pipeline for root image analysis. It is intended to showcase project structure, engineering practices, testing, CI/CD, and core image-processing workflows while protecting confidential intellectual property.
+
+Included
+
+Public-facing project architecture and package organization
+Example image preprocessing and segmentation workflows
+Synthetic/demo data generation utilities
+Model training and evaluation scaffolding
+Unit tests and CI configuration
+Documentation and reproducible setup instructions
+
+Excluded
+
+Proprietary datasets and annotations
+Production-trained model weights
+Internal research code and experimental algorithms
+Customer-specific workflows and deployment infrastructure
+Confidential performance benchmarks derived from private data
+The included code is representative of the overall system design but does not contain all components used in production environments.
+
 ## Workflow
 
 ```bash
