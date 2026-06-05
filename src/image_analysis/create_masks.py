@@ -50,7 +50,8 @@ def automated_generation_with_manual_edit(image_path, sam_checkpoint_path, outpu
         predictor = SamPredictor(sam)
         predictor.set_image(image_rgb)
         
-        masks, _, _ = predictor.predict(input_points, input_labels, multimask_output=False)
+        masks, _, _ = predictor.predict(input_points, input_labels, 
+        multimask_output=False)
         auto_mask = (masks[0] * 255).astype(np.uint8) # Scale to 0-255 for display
     else:
         auto_mask = np.zeros(gray.shape, dtype=np.uint8)
