@@ -21,7 +21,10 @@ def calculate_segmentation_metrics(pred_mask, gt_mask):
     else:
         dice = (2.0 * intersection) / total_pixels_predicted_and_gt
 
-    return iou, dice
+    return {
+    "iou": iou,
+    "dice": dice,
+    }
 
 
 def evaluate_binarization_methods(
