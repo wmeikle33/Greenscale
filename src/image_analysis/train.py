@@ -1,21 +1,17 @@
-import os
-import sys
-from pathlib import Path
-
-import pandas as pd
-from PIL import Image
-
-import torch
-from torch import nn
-from torch.utils.data import Dataset, DataLoader, random_split
-from torchvision import transforms
-from image_analysis.weight_function import RootWeightPredictorNet
-from image_analysis.losses.huberloss_function import DenseThinRootHuberLoss
-
 import argparse
 import random
+from pathlib import Path
+
 import numpy as np
+import pandas as pd
 import torch
+from PIL import Image
+from torch import nn
+from torch.utils.data import DataLoader, Dataset, random_split
+from torchvision import transforms
+
+from image_analysis.losses.huberloss_function import DenseThinRootHuberLoss
+from image_analysis.weight_function import RootWeightPredictorNet
 
 
 def parse_args():
@@ -42,10 +38,12 @@ class RootWeightDataset(Dataset):
         self.image_dir = Path(image_dir)
         self.target_dir = Path(target_dir) if target_dir else None
 
-        self.transform = transforms.Compose([
-            transforms.Resize((image_size, image_size)),
-            transforms.ToTensor(),
-        ])
+        self.transform = transforms.Compose(
+            [
+                transforms.Resize((image_size, image_size)),
+                transforms.ToTensor(),
+            ]
+        )
 
     def __len__(self):
         return len(self.df)
@@ -60,11 +58,11 @@ class RootWeightDataset(Dataset):
         weight = torch.tensor(row["root_weight"], dtype=torch.float32)
 
         if self.target_dir:
-            target_path = self.target_dir / row["image_filename"].replace(".png"
-            , "_target.npy")
+            target_path = self.target_dir / row["image_filename"].replace(
+                ".png", "_target.npy"
+            )
             target_map = torch.tensor(
-                __import__("numpy").load(target_path),
-                dtype=torch.float32
+                __import__("numpy").load(target_path), dtype=torch.float32
             ).unsqueeze(0)
             return image, target_map, weight
 
@@ -90,7 +88,7 @@ def train(data_dir, output_dir, epochs, lr, val_split, seed):
 
     val_size = max(1, int(val_split * len(dataset)))
     train_size = len(dataset) - val_size
-    
+
     generator = torch.Generator().manual_seed(seed)
     train_ds, val_ds = random_split(
         dataset,
@@ -176,6 +174,7 @@ def train(data_dir, output_dir, epochs, lr, val_split, seed):
 
     print("Training complete.")
 
+
 def main():
     args = parse_args()
     set_seed(args.seed)
@@ -187,6 +186,7 @@ def main():
         val_split=args.val_split,
         seed=args.seed,
     )
+
 
 if __name__ == "__main__":
     main()

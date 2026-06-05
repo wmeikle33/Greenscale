@@ -1,20 +1,23 @@
 import os
+
 import cv2
 import numpy as np
 import scipy.ndimage as ndimage
 from skimage.filters import frangi
 
+
 def process_entire_dataset(input_folder, output_folder, winning_method):
 
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
-        
-    valid_extensions = ('.png', '.jpg', '.jpeg', '.tif', '.tiff')
-    image_files = [f for f in os.listdir(input_folder) if 
-    f.lower().endswith(valid_extensions)]
-    
+
+    valid_extensions = (".png", ".jpg", ".jpeg", ".tif", ".tiff")
+    image_files = [
+        f for f in os.listdir(input_folder) if f.lower().endswith(valid_extensions)
+    ]
+
     print(f"Starting batch processing for {len(image_files)} images...")
-    
+
     for filename in image_files:
         img_path = os.path.join(input_folder, filename)
         img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
@@ -25,10 +28,7 @@ def process_entire_dataset(input_folder, output_folder, winning_method):
 
         if winning_method == "adaptive":
             raw_mask = cv2.adaptiveThreshold(
-                img, 255,
-                cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                cv2.THRESH_BINARY,
-                11, 2
+                img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2
             )
             binary_mask = (raw_mask > 127).astype(np.uint8)
 

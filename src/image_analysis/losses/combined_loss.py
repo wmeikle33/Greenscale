@@ -46,22 +46,14 @@ class SoftCLDiceLoss(nn.Module):
         pred_skeleton = soft_skeletonize(probs, self.iterations)
         target_skeleton = soft_skeletonize(targets, self.iterations)
 
-        tprec = (
-            (pred_skeleton * targets).sum(dim=(1, 2, 3)) + self.smooth
-        ) / (
+        tprec = ((pred_skeleton * targets).sum(dim=(1, 2, 3)) + self.smooth) / (
             pred_skeleton.sum(dim=(1, 2, 3)) + self.smooth
         )
 
-        tsens = (
-            (target_skeleton * probs).sum(dim=(1, 2, 3)) + self.smooth
-        ) / (
+        tsens = ((target_skeleton * probs).sum(dim=(1, 2, 3)) + self.smooth) / (
             target_skeleton.sum(dim=(1, 2, 3)) + self.smooth
         )
 
-        cl_dice = (
-            2.0 * tprec * tsens + self.smooth
-        ) / (
-            tprec + tsens + self.smooth
-        )
+        cl_dice = (2.0 * tprec * tsens + self.smooth) / (tprec + tsens + self.smooth)
 
         return 1.0 - cl_dice.mean()

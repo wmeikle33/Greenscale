@@ -6,7 +6,6 @@ import torch
 
 from image_analysis.train import train
 
-
 MODEL_PATH = Path("models/root_distance_model.pth")
 INPUT_DIR = Path("data/raw")
 PREDICTION_DIR = Path("outputs/predictions")
@@ -22,7 +21,8 @@ def predict():
     model.eval()
 
     image_paths = [
-        p for p in INPUT_DIR.iterdir()
+        p
+        for p in INPUT_DIR.iterdir()
         if p.suffix.lower() in [".png", ".jpg", ".jpeg", ".tif", ".tiff"]
     ]
 

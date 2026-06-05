@@ -15,12 +15,8 @@ class AdaptiveWingLoss(nn.Module):
 
         alpha_minus_y = self.alpha - target
 
-        small_error_loss = (
-            self.omega
-            * torch.log(
-                1
-                + torch.pow(error / self.epsilon, alpha_minus_y)
-            )
+        small_error_loss = self.omega * torch.log(
+            1 + torch.pow(error / self.epsilon, alpha_minus_y)
         )
 
         A = (
@@ -31,13 +27,8 @@ class AdaptiveWingLoss(nn.Module):
             / self.epsilon
         )
 
-        C = (
-            self.theta * A
-            - self.omega
-            * torch.log(
-                1
-                + torch.pow(self.theta / self.epsilon, alpha_minus_y)
-            )
+        C = self.theta * A - self.omega * torch.log(
+            1 + torch.pow(self.theta / self.epsilon, alpha_minus_y)
         )
 
         large_error_loss = A * error - C

@@ -30,18 +30,10 @@ class FocalTverskyLoss(nn.Module):
 
         fn = (targets * (1 - probs)).sum()
 
-        tversky = (
-            tp + self.smooth
-        ) / (
-            tp
-            + self.alpha * fp
-            + self.beta * fn
-            + self.smooth
+        tversky = (tp + self.smooth) / (
+            tp + self.alpha * fp + self.beta * fn + self.smooth
         )
 
-        loss = torch.pow(
-            (1.0 - tversky),
-            self.gamma
-        )
+        loss = torch.pow((1.0 - tversky), self.gamma)
 
         return loss

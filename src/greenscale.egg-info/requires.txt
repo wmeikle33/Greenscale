@@ -1,0 +1,13 @@
+numpy>=1.26
+opencv-python>=4.10
+matplotlib>=3.9
+pillow>=11.0
+torch>=2.7
+torchvision>=0.22
+scikit-image>=0.22
+pandas>=2.2
+
+[dev]
+pytest
+black
+ruff

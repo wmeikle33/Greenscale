@@ -1,7 +1,6 @@
-import numpy as np 
 import cv2
-from skimage.filters import frangi
-from skimage.filters import threshold_otsu
+import numpy as np
+from skimage.filters import frangi, threshold_otsu
 
 
 def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
@@ -18,12 +17,11 @@ def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
     # METHOD 1: Local Adaptive Thresholding
     # -------------------------------------------------------------------------
     adaptive_raw = cv2.adaptiveThreshold(
-        img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
-        cv2.THRESH_BINARY, 11, 2
+        img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2
     )
     # Convert from 0/255 to strict deep learning target 0/1
     mask_adaptive = (adaptive_raw > 127).astype(np.uint8)
-    kernel = np.ones((3,3), np.uint8)
+    kernel = np.ones((3, 3), np.uint8)
     mask_adaptive = cv2.morphologyEx(mask_adaptive, cv2.MORPH_OPEN, kernel)
     mask_adaptive = cv2.morphologyEx(mask_adaptive, cv2.MORPH_CLOSE, kernel)
 
@@ -33,28 +31,29 @@ def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
     img_float = img.astype(np.float32) / 255.0
     ridge_probability = frangi(img_float, sigmas=np.arange(1, 4, 1))
     t = threshold_otsu(ridge_probability)
-    mask_frangi = (ridge_probability > t)
-    kernel = np.ones((3,3), np.uint8)
+    mask_frangi = ridge_probability > t
+    kernel = np.ones((3, 3), np.uint8)
     mask_frangi = cv2.morphologyEx(mask_frangi, cv2.MORPH_OPEN, kernel)
     mask_frangi = cv2.morphologyEx(mask_frangi, cv2.MORPH_CLOSE, kernel)
-    
+
     # -------------------------------------------------------------------------
     # METHOD 3: Morphological Contrast Enhancement (Top-Hat)
     # -------------------------------------------------------------------------
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
-    
-    # Top-hat isolates features brighter than their surroundings within 
+
+    # Top-hat isolates features brighter than their surroundings within
     # the 3x3 region
     tophat = cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel)
-    
+
     # Boost the contrast of fine details heavily
     enhanced_img = cv2.addWeighted(img, 1.0, tophat, 2.0, 0)
-    
+
     # Apply a standard threshold to the freshly amplified thin structures
-    _, enhanced_raw = cv2.threshold(enhanced_img,0,255,cv2.THRESH_BINARY + 
-    cv2.THRESH_OTSU)
+    _, enhanced_raw = cv2.threshold(
+        enhanced_img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
+    )
     mask_morph = (enhanced_raw > 127).astype(np.uint8)
-    kernel = np.ones((3,3), np.uint8)
+    kernel = np.ones((3, 3), np.uint8)
     mask_morph = cv2.morphologyEx(mask_morph, cv2.MORPH_OPEN, kernel)
     mask_morph = cv2.morphologyEx(mask_morph, cv2.MORPH_CLOSE, kernel)
 
@@ -63,9 +62,7 @@ def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
     # -------------------------------------------------------------------------
 
     combined = (
-    mask_adaptive.astype(int)
-    + mask_frangi.astype(int)
-    + mask_morph.astype(int)
+        mask_adaptive.astype(int) + mask_frangi.astype(int) + mask_morph.astype(int)
     )
     mask_ensemble = (combined >= 2).astype(np.uint8)
 
