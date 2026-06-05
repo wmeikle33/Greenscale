@@ -14,7 +14,12 @@ def test_calculate_segmentation_metrics_perfect_match():
 
     prediction = ground_truth.copy()
 
-    metrics = calculate_segmentation_metrics(prediction, ground_truth)
+    metrics = calculate_metrics(prediction, ground_truth)
+    
+    assert "iou" in metrics
+    assert "dice" in metrics
+    assert "precision" in metrics
+    assert "recall" in metrics
 
     assert metrics["iou"] == 1.0
     assert metrics["dice"] == 1.0
