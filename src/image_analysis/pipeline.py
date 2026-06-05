@@ -12,7 +12,7 @@ def main():
     image_path = RAW_DIR / "example.png"
     gt_path = GT_DIR / "example.png"
 
-    adaptive, frangi, morph = apply_advanced_binarizations(
+    adaptive, frangi, morph, ensemble = apply_advanced_binarizations(
         str(image_path),
         output_prefix="outputs/example"
     )
