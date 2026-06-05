@@ -9,8 +9,10 @@ class DenseThinRootHuberLoss(nn.Module):
         
         Parameters:
         - delta: Huber threshold (optimized for thin 0.0 - 1.0 fractional gradients).
-        - beta_foreground: Scale factor to balance tiny thin roots vs vast soil backgrounds.
-        - beta_separation: Massive penalty factor for failing to split closely packed branches.
+        - beta_foreground: Scale factor to balance tiny thin roots vs vast soil 
+        backgrounds.
+        - beta_separation: Massive penalty factor for failing to split closely packed 
+        branches.
         """
         super(DenseThinRootHuberLoss, self).__init__()
         self.delta = delta
