@@ -14,7 +14,7 @@ def test_calculate_segmentation_metrics_perfect_match():
 
     prediction = ground_truth.copy()
 
-    metrics = calculate_metrics(prediction, ground_truth)
+    metrics = calculate_segmentation_metrics(prediction, ground_truth)
     
     assert "iou" in metrics
     assert "dice" in metrics
