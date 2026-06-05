@@ -9,7 +9,7 @@ def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
     and returns them as strict binary arrays (0 and 1).
     """
     # 1. Load the original image as grayscale
-    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread(str(image_path), cv2.IMREAD_GRAYSCALE)
     if img is None:
         raise FileNotFoundError(f"Could not load image at {image_path}")
 
