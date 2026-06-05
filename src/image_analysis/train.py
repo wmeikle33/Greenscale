@@ -14,7 +14,7 @@ from torchvision import transforms
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT / "src"))
 
-from image_analysis.losses.weight_function import RootWeightPredictorNet
+from image_analysis.weight_function import RootWeightPredictorNet
 from image_analysis.losses.huberloss_function import DenseThinRootHuberLoss
 
 
