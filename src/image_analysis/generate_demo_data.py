@@ -14,6 +14,7 @@ TARGET_DIR = DATA_DIR / "targets"
 def main() -> None:
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     MASK_DIR.mkdir(parents=True, exist_ok=True)
+    TARGET_DIR.mkdir(parents=True, exist_ok=True)
 
     image = np.full((256, 256), 235, dtype=np.uint8)
     mask = np.zeros((256, 256), dtype=np.uint8)
