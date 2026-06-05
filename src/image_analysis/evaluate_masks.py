@@ -38,7 +38,7 @@ def evaluate_binarization_methods(mask_adaptive, mask_frangi, mask_morph, mask_e
     print(f"Method 1: Adaptive Thresholding       | IoU: {iou_adapt:.4f} | Dice: {dice_adapt:.4f}")
     print(f"Method 2: Frangi Ridge Filter        | IoU: {iou_fran:.4f}  | Dice: {dice_fran:.4f}")
     print(f"Method 3: Morphological Top-Hat       | IoU: {iou_morph:.4f} | Dice: {dice_morph:.4f}")
-     print(f"Method 3:Ensemble                    | IoU: {iou_ensemble:.4f} | Dice: {dice_ensemble:.4f}")
+    print(f"Method 3:Ensemble                    | IoU: {iou_ensemble:.4f} | Dice: {dice_ensemble:.4f}")
     print("=================================================================\n")
     
     scores = {"Adaptive": iou_adapt, "Frangi": iou_fran, "Morphological": iou_morph, "Ensemble": iou_ensemble}
