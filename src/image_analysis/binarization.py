@@ -31,7 +31,7 @@ def apply_advanced_binarizations(image_path, output_prefix="root_mask"):
     img_float = img.astype(np.float32) / 255.0
     ridge_probability = frangi(img_float, sigmas=np.arange(1, 4, 1))
     t = threshold_otsu(ridge_probability)
-    mask_frangi = ridge_probability > t
+    mask_frangi = (ridge_probability > t).astype(np.uint8)
     kernel = np.ones((3, 3), np.uint8)
     mask_frangi = cv2.morphologyEx(mask_frangi, cv2.MORPH_OPEN, kernel)
     mask_frangi = cv2.morphologyEx(mask_frangi, cv2.MORPH_CLOSE, kernel)
